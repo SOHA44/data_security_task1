@@ -3,8 +3,25 @@ package Security;
 public class AutoKey {
     public String analyse(String plainText, String cipherText) {
         // Students should complete this part
-
-        return null;
+        cipherText = cipherText.toLowerCase().replaceAll("[^a-z]", "");
+        plainText = plainText.toLowerCase().replaceAll("[^a-z]", "");
+        StringBuilder autokey = new StringBuilder();
+        int len = plainText.length();
+        for (int i =0 ;i<len;i++){
+            int p = plainText.charAt(i)-'a';
+            int c = cipherText.charAt(i)-'a';
+            int k = (c-p+26)%26;
+            char key_char = (char)(k+'a');
+            autokey.append(key_char);
+        }
+        String key = autokey.toString();
+        // to delete part of plain
+        for(int i=1;i<key.length();i++){
+            if (plainText.startsWith(key.substring(i))){
+                return key.substring(0,i);
+            }
+        }
+        return key;
     }
 
     public String decrypt(String cipherText, String key) {
