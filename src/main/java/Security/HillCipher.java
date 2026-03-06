@@ -146,6 +146,19 @@ public class HillCipher {
 
     public List<Integer> analyse3By3Key(List<Integer> plainText, List<Integer> cipherText) {
         // Students should complete this part
-        throw new InvalidAnalysisException();
+        List<Integer> ky = new ArrayList<>();
+        List<Integer> p1 = new ArrayList<>();
+        List<Integer> c1 = new ArrayList<>();
+        if (plainText.size() < 9 || cipherText.size() < 9) {
+            throw new InvalidAnalysisException();
+        }
+        for (int col = 0; col< 3; col++) {
+            for (int row=0;row<3;row++){
+                p1.add(plainText.get(row*3 +col));
+                c1.add(cipherText.get(row*3 +col));}
+        }
+        List<Integer> plaintext_inverse = invertMatrix(p1, 3);
+        ky = multiplyMatricesMod26(c1, plaintext_inverse, 3);
+        return ky;
     }
 }
