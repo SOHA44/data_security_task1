@@ -18,7 +18,7 @@ public class AutoKey {
         // to delete part of plain
         for(int i=1;i<key.length();i++){
             if (plainText.startsWith(key.substring(i))){
-                return key.substring(0,i);
+                return key.substring(0,i); // return from first char to length = plain length
             }
         }
         return key;
