@@ -39,7 +39,13 @@ public class AutoKey {
          autoKey.append(plain); // key = key + (plain)
          plain_txt.append(plain);
         }
-
+        int key_len = autoKey.length();
+        int plain_len= plain_txt.length();
+      if (key_len>plain_len) {
+    for (int i= key_len-1; i >= plain_len ;i--){
+        autoKey.deleteCharAt(i);
+    }
+}
         return plain_txt.toString();
     }
 
