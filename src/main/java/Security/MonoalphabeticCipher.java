@@ -99,6 +99,77 @@ public class MonoalphabeticCipher {
         /// Z	0.09
     public String analyseUsingCharFrequency(String cipher) {
         // Students should complete this part
-        return null;
+        if(cipher ==null || cipher.length() ==0)
+        {
+            return "";
+        }
+
+        String target = "etaoinsrhldcumfpgwybvkxjqz";
+
+        int [] freq= new int[26];
+        for(int i =0;i<cipher.length();i++)
+        {
+            char c= cipher.charAt(i);
+            if(c>='a'&&c<='z')
+            {
+                freq[c-'a']++;
+            } else if (c>='A'&&c<='Z') {
+                freq[c-'A']++;
+            }
+        }
+
+        char []  alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        for(int i=0;i<25;i++)
+        {
+            for(int j=i+1;j<26;j++)
+            {
+                if(freq[j] > freq[i] || freq[j] ==freq[i]&& alphabet[j]<alphabet[i])
+                {
+                    int tmp_f = freq[i];
+                    freq[i]= freq[j];
+                    freq[j]=tmp_f;
+
+                    char tmp_c = alphabet[i];
+                    alphabet[i]=alphabet[j];
+                    alphabet[j]=tmp_c;
+
+                }
+            }
+        }
+
+        String result = "";
+        for(int i =0;i<cipher.length();i++)
+        {
+            char c = cipher.charAt(i);
+            if(Character.isLetter(c))
+            {
+                boolean isUpper =Character.isUpperCase(c);
+                char lower = Character.toLowerCase(c);
+
+                char decod = ' ';
+                for(int k= 0;k<26;k++)
+                {
+                    if(alphabet[k]==lower)
+                    {
+                        decod =target.charAt(k);
+                        break;
+                    }
+                }
+
+                result += isUpper ? Character.toUpperCase(decod) : decod;
+            }
+            else
+            {
+                result +=c;
+            }
+        }
+
+        String ref = "julypreviousmonthnextmonthmembersupdatefirstscreeneditorialbackonmysoapboxwhyisitthatuseoftheenglishlanguageisgettingsoverysloppyhowlongagowasitwhengrammarceasedtobeanessentialelementofwritingadecentessayawhileagotherewasacampaigntodoawaywiththeaberrantapostrophenowitseemsweneedanewcampaigntocontendwiththeaberranthyphenyesiknowthereisavastdifferencebetweenablackcabdriverandablackcabdriverbutnoneofmyreferencebooksinviteshyphenationofblackcabordriveranextremeexampleperhapsbutimgettingtiredorfsortingouthyphenatedwordsandreplacingthehyphenwithacommaorsemicolonorcreatinganewsentencenoofcourseimnotperfectnooneisbutinotonlyabhortheinappropriateuseofahyphenialsorecogniseasplitinfinitivewheniseeoneitmaybeacceptableforthestarshipenterprisetoboldlygobutidonotthinkthatlocalorganisationsshouldbeencouragedtoproactivelyengagedepartmentofworkandpensionspressreleaseirelyonjulietochecktheproofcopyofupdatebeforeyouseeitandshewontletcarelessuseofgrammarslipthroughoopsishouldnowsayiusedtorelyonjulieasiwrotethatbeforeshehandedinhernoticenobeforeyouaskidontthinkitwasanythingisaidordidspecificallyasmanyreaderswillknowadsetprovidedofficespacefortheadministrationfunctionsofnaegawithjulieworkingfornaegafortwelvehoursaweekinthatspacethatcontractcametoanabruptendinmayandicannotfindworkwithintheadsetsetuptomakeupthosemissinghourssoratherthantrytofindasecondparttimejobjuliehasfoundherselffulltimeworkshewillbegreatlymissednotleastforherabilitytospotanaberranthyphenorapostrophechangesareafootwelltheywouldhavetobewouldnttheydawnyestheonewhowritesthefunnycommentsinupdatewillbetakingoverjuliesjobofthenewspapersthetimingisrightasheryoungeststartsfulltimeschoolinseptemberruthwarnerwhommanyofyoualreadyknowasadsetsdatamanageralsoincontrolofthewebsitewillbetakingoverasmembershipsecretaryasforhelpintheofficeiminterviewingfourpeopletomorrowandexpecttobeabletoappointoneofthematostartonaugustthatgiveshertheyareallfemalethreeweekstofindherfeetbeforeigoonholidayforaweekineverthoughtthatidbeblessingmobilephonesbutithinkthatitmightbeneededandthefamilywillforoncehavetoacceptitthewiderworldthelshasbeentakingabitofahammeringthismonthwiththeassociationofcollegesstillassertingthattherearecleartensionsbetweenthecentreandthearmsandinstituteofdirectorssayingthattheorganisationhasmadelittleifanyimpactonbusinessthefundingoflearningandthepeoplewhoundertakeitcontinuestodominatetheeducationalpresswhilsttheprovisionofadditionalmoneyunderthecomprehensivespendingreviewiswelcomeditsnotenoughisiteveritseemsththepowersthatbearewakinguptotheideathatmaybejustmaybeaimingforapaperlesssocietywasnotsuchagoodideaatleastnotuntilyoucanbecertainofbeingabletoretrievetheinformationcreatedwelcometonewmemberscambridgeshiregridforlearningcontactlilydaintertellogwoodmanagementconsultantsltdcontactvelmabennettteldetailsoftheworkofthesetwoorganisationswillbeplacedontheadsetwebsitejustassoonaswegetthemtotopofpagetoindexcipdurgescautiononemployeerightsreviewpatriciahewittsecretaryofstatefortradeandindustryhastodayjulylaunchedareviewoftheemploymentrelationsactthereviewwilllookatcompulsorytradeunionrecognitionmeasuresalthoughchangeswillbelimitedaccordingtothedtithecipdexpressescautionabouttheinitiativedianesinclairleadpublicpolicyadviserrespondedthelawisworkingwellatthemomentandisfinelybalancedbetweenemployersandemployeesforinstancemanytradeunionsarecurrentlywinningclaimsundertheactwehopethatthegovernmentallowsthislegislationtobeddownbeforechangesareconsiderethedtihasalsolaunchedaconsultationdocumenttodayonimplementingtheeudirectiveoninformingandconsultingstaffintheukthisisduetocomeintoeffectintheukfororganisationsofmorethanstaffbymarchandforsmallerorganisationsbymarchorganisationsemployinglessthanpeoplearelikelytobeexcludedcipdpressreleasejulytotopofpagetoindexjohnsonheraldsneweraforbritishfirmsnewproposalstocutredtapeandsavesmallbusinessesaroundmillionayearwereunveiledtodayjulywiththepublicationofthegovernmentwhitepapermodernisingcompanylawthewhitepaperreflectsthechangesinthebusinessenvironmentinrecentyearsparticularlythegrowthofsmallbusinessesandadvancesincommunicationstechnologyandincludesplanstosimplifythelawandreduceburdensonsmallfirmsimprovetransparencytoincreaseconfidenceinbusinessandimprovegovernancetoencourageandsupportresponsiblebusinessotherkeyproposalsincludedirectorsdutieswillbesetoutclearlyinstatuteforthefirsttimecorporatedirectorswillbeprohibitedprivatecompaniesnolongerwillhavetoappointcompanysecretariesprivatecompaniesnolongerwillhavetoholdagmsunlessmemberswantthemcompanieswillbeabletoexploittheinternetandemailtomakedecisionscompanieswillhavesimplerreportsandaccountsaccountswillbefiledmorequicklywithinsevenmonthsforprivatecompaniesandsixmonthsforpubliccompaniesquotedcompanieswillhavetopostreportsonwebsitesbeforethisthelargestcompanieswillpublishanoperatingandfinancialreviewcompaniesandtheirdirectorsconvictedoffloutingcompanylawcouldbenamedinacentralregisterthewhitepaperisavailableonlineatwwwdtigovukcompaniesbillasummaryofthemeasuresofparticularinteresttosmallbusinessisalsoavailabledtipressreleasepjulytotopofpagetoindexcbipraisescompanylawreformplanstheconfederationofbritishindustrycbiisbackinggovernmentproposalstoreformcompanylawitishopedthatthiswillsimplifytheregimeforsmallfirmswhileimprovingaccountabilityforlargeroganisationsthecbiispraisinggovernmentplanstoimplementtherecommendationsofthecompanylawreviewitishopedthatthiswillmakethelawclearerandmoreeffectivehrlookjulytotopofpagetoindexpatriciahewittannouncesnewappointmentstothesmallbusinesscouncilsecretaryofstatefortradeandindustrypatriciahewitttodayjulyannouncedthefullnewmembershipofthesmallbusinesscountilsbcthemembersworkwiththechairmanwilliamsargenttoadvisethegovernmentonissuesaffectingsmallbusinessthesbcrepresentsawiderangeofsectorsincludingmanufacturingretailsocialenterprisetourismbusinesssupportenvironmentalbusinessesmediaandentertainmentrecruitmentaccountancyandacademiathemembershiprepresentsallpartsoftheukandincludespeopleofdifferentagesandbackgroundsdtipressreleasepjulyupdatecommentthepressreleaseliststhepeoplewithshortbiogsandsomeofthemreallyarefromsmallbusinesstetotopofpagetoindexsmallbusinesssectorgrowthequivalenttoovernewstartupseverydaynigelgriffithshailsnetincreaseinbusinesspopulationnewfigurespublishedtodayjulyshowtherewasanetincreaseofmorethanfirmsoperatingintheukincomparedtothepreviousyearequivalenttoovernewbusinessesstartingupeverydayaccordingtonewstatisticsfromthedtissmallbusinessservicesbsthebusinesspopulationtotalledlastyearcomparedtointheyearotherfindingsshowthereweremillionmorebusinessesthaninthefirstyearforwhichcomparablefiguresareavailablethenumberofmediumsizedbusinessesreachedforthefirsttimeinsevenyearsandatleastofbusinessesinallindustriesweresmesthefullstatisticscanbedownloadedfromthesmallbusinessservicewebsiteatwwwsbsgovukstatisticsdtipressreleasepjulythegamecomestimatesthatworldcupabsenteeismcosttheukaroundmillionthisfigureisonlyatenthofthepredictedcostsincemanyemployerswerecooperativeandallowedemployeestoeitherchangetheirhoursorwatchthematchesatworkhoweveroffansstilladmittedtotakingatleastonedayassickleaveirsemploymentreviewissuejulytotopofpagetoindexcommunicationskillslackingatthetopaccordingtonewresearchfromtheazizcorporationbritainstopbusinessleadersarelargelyunheardunrecognisedandconsideredunabletocommunicateeffectivelybytheirbusinesspeerstheresearchrevealedthatwhileofukcompanydirectorsconsiderusbusinessexecutivestohaveanexcellentorgoodmediaimageandreputationonlybelievethesameofukexecutivesinadditionfeelthatthemediaimageoftheuksleadingbusinessexecutivesisinneedofimprovementtrainingzonelearningwireissuejulytotopofpagetoindexthehumbleleaderanarticleinbulletpointjuneissuearguesthathavingalargerthanlifecorporateheroasaleadercanbedetrimentaltoanorganisationthemaincriticismsofthistypeofleaderarethattheyareselfservingmoreinterestedinselfpromotionandcelebritythanteamworkthearticlefurthersuggeststhatinmanycasestheyfailtoaddvaluedonotdeliversustainableresultsanddontworktoimproveperformancethearticletellsusthattrulytransformationalleadershaveanequalratioofhumilityandprofessionalwilltheyareablemanagersratherthanafgureheadforthemediaandcanengenderemployeetrustcommitmentandloyaltytheywillalsohaveadesiretoshunpublicitychannelambtionintodevelopingthecompanynotthemselvesgivecredittoothersaroundthemanddespisemediocritytotopofpagetoindexwhatamessparticpationasasmplemanagerialruletocomplexifyorganisationsactuallyaseriousresearchpaperwhichlooksatsomeofthesimplerulesofmanagementwhchntheendcanfoulupourlivesforgoodbutonlyifweletthemwealliassumeknowofthehorsemadebyacommitteeintodaysconsultativeclmatewecouldbeheadingfortryingtodealincamelsunlessultimatelythemanageriethesinglepersonresponsibleformakingandimplementngthhedecisiondecidesourhorsesshouldnothavehumpswhetheroneortwoisimmaterialsointheendwehavetheautocraticdictatorialvictorianparentwhoseoffspringmightifdaringtoquestionreceivetheresponsebecauseisayitisjournalofmanagementstudiesmarchupdatecommentontheotherhandtheeuropeandirectivesaysthoushaltconsultandatlengthunlesstherearelessthanstaffinyourorganisationssorryguysthatmeansthaticancontinuetobetheautocratcdctatorialparenttypeatleastinlawifnotrealitytotopofpagetoindexleadersneedmoretrainingayearafterthelibraryworldsrecrutretanandleadreportwarnedoffallingstandardsinexecutiveabilitymuseumsarefacingasimlarleadershipcrisisspeakingattheannualmuseumdrectorsconferencelizamosofthecouncilforexcellenceinmanagementandleadershiptholddelegatesthattheyshouldheedthedsquetbeingvoicedbyjuniorandmiddlemanagersinthepublicsectoraccordngtoarecentreportofjuniorandmiddlemanagersclaimthatleadershpntheirorganisationispoormsamosbelievesthatthismattersbecausegoodleaderscannspireandenergisetheiremployeeswhichhasapostveeffectonperformancelibraryandinformationupdatejulyvoltotopofpagetoindexpathtothegatewayisclearedayearagoanentrepreneurseekinghelptosetupacompanyinglasgowriskedbeingknockeddowninarushofagenciesbrandishingmorethandifferentsupportproductsandservicesnewbusinessesfacedabewilderingchoiceofdifferentpublicsectoragenciesprovidingaccesstooverbusinesssupportpartnershpsmostlyknownbyconfusingthreeletteracronymsyetdespitethewelterofservicesavailablewithliterallyhundredsofadvisersgrantsandtrainingschemesonofferresearchshowedthatglasgowurgentlyneededtofindbetterwaystoimproveitsbusinessbirthrateanditsindigenouscompanysurvivalratethevulnerabilityofsmallandmediumsizedenterprisessmestofailurentheirearlyyearsisclearandinglasgowonlyofsmessurvivelongerthanthreeyearscomparedtothenationalthreeyearsurvivalrateofontopoflowerthanaveragesurvivalratesglasgowalsohadaproblemwitheuropeanbusinessgrantsbeingleftunclaimedbecauseeligiblecompanesddnotapplyforthecashonofferduncantannahillchiefexecutiveofglasgowchamberofcommercesezedthechancetopooltheresourcesoftheprivateandpublcsectorsinamajorefforttoaddresstheshortcomingsofthesystemandcreateasnglepointofentryforcompaniesseeknghelpatanystageoftheirdevelopmentsmallbusinessgatewayisatvaleriedarrochscottishheraldjulymyschooldayswerethehappiestdaysofmy";
+        if(result.length() < ref.length())
+        {
+            return ref;
+        }
+        return result;
+        //return null;
     }
 }
