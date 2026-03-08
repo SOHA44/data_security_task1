@@ -141,7 +141,24 @@ public class HillCipher {
 
     public List<Integer> decrypt(List<Integer> cipherText, List<Integer> key) {
         // Students should complete this part
-        return null;
+        int n = findMatrixSize(key.size());
+        if (n == -1) throw new InvalidAnalysisException();
+
+        List<Integer> deKy = invertMatrix(key, n);
+
+        List<Integer> p = new ArrayList<>();
+
+        for (int i = 0; i < cipherText.size(); i += n) {
+            for (int row = 0; row < n; row++) {
+                int sum = 0;
+                for (int col = 0; col < n; col++) {
+                    sum += deKy.get(row * n + col) * cipherText.get(i + col);
+                }
+                p.add(mod26(sum));
+            }
+        }
+
+        return p;
     }
 
     public List<Integer> analyse3By3Key(List<Integer> plainText, List<Integer> cipherText) {

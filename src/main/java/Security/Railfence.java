@@ -3,7 +3,39 @@ package Security;
 public class Railfence {
     public int analyse(String plainText, String cipherText) {
         // Students should complete this part
-        return 0;
+
+        plainText = plainText.replace(" ", "").toLowerCase();
+        cipherText = cipherText.replace(" ", "").toLowerCase();
+
+        int len = plainText.length();
+        for (int railKey = 1; railKey <= len; railKey++) {
+            int colNum = (int) Math.ceil((double) plainText.length() / railKey);
+
+            char[][] saraMatrix = new char[railKey][colNum];
+
+            int pos = 0;
+            for (int c = 0; c < colNum && pos < len; c++) {
+                for (int r = 0; r < railKey && pos < len; r++) {
+                    saraMatrix[r][c] = plainText.charAt(pos++);
+                }
+            }
+
+            StringBuilder tempCipher = new StringBuilder();
+            for (int r = 0; r < railKey; r++) {
+                for (int c = 0; c < colNum; c++) {
+                    if (saraMatrix[r][c] != '\0') {
+                        tempCipher.append(saraMatrix[r][c]);
+                    }
+                }
+            }
+
+            if (tempCipher.toString().equals(cipherText)) {
+                return railKey;
+            }
+        }
+
+        return -1;
+
     }
 
     public String decrypt(String cipherText, int key) {
