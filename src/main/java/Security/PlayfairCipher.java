@@ -91,7 +91,51 @@ public class PlayfairCipher {
 
     // TODO: Implement this method to decrypt the ciphertext back to plaintext
     public String decrypt(String text) {
-        // Students should complete this part
-        return null;
+
+        text = text.toUpperCase().replaceAll("[^A-Z]", "");
+        if(text.length() % 2 !=0)
+        {
+            text +="X";
+        }
+
+        StringBuilder decrypt = new StringBuilder();
+        for (int i = 0; i < text.length(); i += 2) {
+            int[] pos1 = findPosition(text.charAt(i));
+            int[] pos2 = findPosition(text.charAt(i + 1));
+
+            if (pos1 == null || pos2 == null) continue; // Safety check
+
+            if (pos1[0] == pos2[0]) {  // Same row
+                decrypt.append(keyMatrix[pos1[0]][(pos1[1] + 4) % 5]);
+                decrypt.append(keyMatrix[pos2[0]][(pos2[1] + 4) % 5]);
+            } else if (pos1[1] == pos2[1]) {  // Same column
+                decrypt.append(keyMatrix[(pos1[0] + 4) % 5][pos1[1]]);
+                decrypt.append(keyMatrix[(pos2[0] + 4) % 5][pos2[1]]);
+            } else {  // Rectangle swap
+                decrypt.append(keyMatrix[pos1[0]][pos2[1]]);
+                decrypt.append(keyMatrix[pos2[0]][pos1[1]]);
+            }
+        }
+
+        StringBuilder clean = new StringBuilder();
+        for(int i =0;i<decrypt.length();i++)
+        {
+            char cur = decrypt.charAt(i);
+            if(cur =='X')
+            {
+                if(i == decrypt.length()-1)
+                {
+                    continue;
+                }
+
+                if(i>0 && decrypt.charAt(i-1) == decrypt.charAt(i+1))
+                {
+                    continue;
+                }
+            }
+            clean.append(cur);
+        }
+        return clean.toString();
+        //return null;
     }
 }

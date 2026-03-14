@@ -26,7 +26,11 @@ public class CaeserCipher {
 
     public int analyse(String plainText, String cipherText) {
         // TODO: Analyze the plainText and cipherText to determine the key(s)
+        plainText = plainText.toLowerCase();
+        cipherText = cipherText.toLowerCase();
+        if(plainText.length()==0 || cipherText.length()==0){return -1;}
+        int caeserky = (cipherText.charAt(0) - plainText.charAt(0)+26)%26;
 
-        return 0;
+        return caeserky;
     }
 }
