@@ -149,9 +149,18 @@ public class HillCipher {
         List<Integer> ky = new ArrayList<>();
         List<Integer> p1 = new ArrayList<>();
         List<Integer> c1 = new ArrayList<>();
-        if (plainText.size() < 9 || cipherText.size() < 9) {
-            throw new InvalidAnalysisException();
+        if (plainText.size() < 9 ) {
+//            throw new InvalidAnalysisException();
+            for (int i=plainText.size();i<9;i++){
+                plainText.add(23);
+            }
         }
+        if ( cipherText.size() < 9) {
+//            throw new InvalidAnalysisException();
+            for (int i=cipherText.size();i<9;i++){
+                cipherText.add(23);}
+        }
+
         for (int col = 0; col< 3; col++) {
             for (int row=0;row<3;row++){
                 p1.add(plainText.get(row*3 +col));
