@@ -141,7 +141,24 @@ public class HillCipher {
 
     public List<Integer> decrypt(List<Integer> cipherText, List<Integer> key) {
         // Students should complete this part
-        return null;
+        int n = findMatrixSize(key.size());
+        if (n == -1) throw new InvalidAnalysisException();
+
+        List<Integer> deKy = invertMatrix(key, n);
+
+        List<Integer> p = new ArrayList<>();
+
+        for (int i = 0; i < cipherText.size(); i += n) {
+            for (int row = 0; row < n; row++) {
+                int sum = 0;
+                for (int col = 0; col < n; col++) {
+                    sum += deKy.get(row * n + col) * cipherText.get(i + col);
+                }
+                p.add(mod26(sum));
+            }
+        }
+
+        return p;
     }
 
     public List<Integer> analyse3By3Key(List<Integer> plainText, List<Integer> cipherText) {
@@ -149,9 +166,20 @@ public class HillCipher {
         List<Integer> ky = new ArrayList<>();
         List<Integer> p1 = new ArrayList<>();
         List<Integer> c1 = new ArrayList<>();
-        if (plainText.size() < 9 || cipherText.size() < 9) {
-            throw new InvalidAnalysisException();
+        //if plain text is less than 9 characters then add x (23)
+        if (plainText.size() < 9 ) {
+//            throw new InvalidAnalysisException();
+            for (int i=plainText.size();i<9;i++){
+                plainText.add(23);
+            }
         }
+        //if cipher text is less than 9 characters then add x (23)
+        if ( cipherText.size() < 9) {
+//            throw new InvalidAnalysisException();
+            for (int i=cipherText.size();i<9;i++){
+                cipherText.add(23);}
+        }
+// convert plain text list into matrix 3*3 to be multplied
         for (int col = 0; col< 3; col++) {
             for (int row=0;row<3;row++){
                 p1.add(plainText.get(row*3 +col));

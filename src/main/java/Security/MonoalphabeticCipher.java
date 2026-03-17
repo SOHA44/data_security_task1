@@ -99,6 +99,57 @@ public class MonoalphabeticCipher {
         /// Z	0.09
     public String analyseUsingCharFrequency(String cipher) {
         // Students should complete this part
-        return null;
+
+        String target = "etaoinsrhldcumfpgwybvkxjqz";
+
+        int[] freq = new int[26];
+        String Lower_Cipher = cipher.toLowerCase();
+        for (int i = 0; i < Lower_Cipher.length(); i++) {
+            char c = Lower_Cipher.charAt(i);
+            if (c >= 'a' && c <= 'z') {
+                freq[c - 'a']++;
+            }
+        }
+
+        char[] alphabet = new char[26];
+        for (int i = 0; i < 26; i++) {
+            alphabet[i] = (char) ('a' + i);
+        }
+        for (int i = 0; i < 25; i++) {
+            for (int j = i + 1; j < 26; j++) {
+                int f1 = freq[alphabet[i] - 'a'];
+                int f2 = freq[alphabet[j] - 'a'];
+
+                if (f2 > f1 || f2 == f1 && alphabet[j] < alphabet[i]) {
+                    char tmp = alphabet[i];
+                    alphabet[i] = alphabet[j];
+                    alphabet[j] = tmp;
+                }
+            }
+        }
+
+        char[] m = new char[26];
+        for (int i = 0; i < 26; i++)
+        {
+            m[alphabet[i]-'a']= target.charAt(i);
+        }
+
+        StringBuilder result = new StringBuilder();
+        for(int i=0;i<cipher.length();i++)
+        {
+            char c = cipher.charAt(i);
+            if(Character.isLetter(c))
+            {
+                char tras = m[Character.toLowerCase(c)-'a'];
+                result.append(tras);
+            }
+            else
+            {
+                result.append(c);
+            }
+        }
+
+        return  result.toString();
+        //return null;
     }
 }
